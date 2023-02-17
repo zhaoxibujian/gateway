@@ -1,0 +1,49 @@
+server:
+  port: 3005
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials Vary, RETAIN_UNIQUE
+  application:
+    name: algo-gateway
+  profiles:
+    active:
+      - dev
+
+#开发版本
+---
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      server-addr: 192.168.116.112:8848
+      username: nacos
+      password: 123456
+      config:
+        namespace: test
+        group: DEFAULT_GROUP
+      discovery:
+        namespace: test
+        group: DEFAULT_GROUP
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: INFO
+
+#开启端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
