@@ -13,15 +13,29 @@ spring:
     name: algo-gateway
   profiles:
     active:
-      - dev
-
+      - local
+#开发版本
+---
+spring:
+  profiles: local
+  cloud:
+    nacos:
+      server-addr: 62.234.20.228:8848
+      username: psp
+      password: kOZz2SRTIYUuk8nq
+      config:
+        namespace: test
+        group: DEFAULT_GROUP
+      discovery:
+        namespace: test
+        group: DEFAULT_GROUP
 #开发版本
 ---
 spring:
   profiles: dev
   cloud:
     nacos:
-      server-addr: 192.168.116.112:8848
+      server-addr: 192.168.117.30:8848
       username: nacos
       password: 123456
       config:
